@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Installing R and R Studio | Introduction 2 R</title>
+  <title>Chapter 3 Intro to R Part II | Introduction 2 R</title>
   <meta name="description" content="This is an intro to R workshop." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Installing R and R Studio | Introduction 2 R" />
+  <meta property="og:title" content="Chapter 3 Intro to R Part II | Introduction 2 R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Installing R and R Studio | Introduction 2 R" />
+  <meta name="twitter:title" content="Chapter 3 Intro to R Part II | Introduction 2 R" />
   
   <meta name="twitter:description" content="This is an intro to R workshop." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="intro-to-r-part-ii.html"/>
+<link rel="prev" href="installing-r-and-r-studio.html"/>
+<link rel="next" href="dplyr.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -178,30 +178,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="installing-r-and-r-studio" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Installing R and R Studio</h1>
-<p>If you are running your R code in your computer, you need to install both R and RStudio. Alternatively, you can create a free account at <a href="http://rstudio.cloud" class="uri">http://rstudio.cloud</a> and run your R code in the cloud. Either way, we will be using the same IDE (i.e., RStudio).</p>
-<style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
-</style>
-<div class="blue">
-<p>What’s an IDE? IDE stands for integrated development environment, and its goal is to facilitate coding by integrating a text editor, a console and other tools into one window.</p>
+<div id="intro-to-r-part-ii" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Intro to R Part II</h1>
+<div id="install-tidyverse" class="section level2">
+<h2><span class="header-section-number">3.1</span> Install tidyverse</h2>
+<p>For this workshop we are going to be using packages from the tidyverse. More information on tidyverse can be found here <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>
+</p>
+<p>To start download the tidyverse packages using install.packages()</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co">#install tidyverse</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</a></code></pre></div>
+<p>Now load the libraries</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Load tidyverse</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<p>Notice all of the different packages that are not available for use to use.</p>
+<ul>
+<li>ggplot2</li>
+<li>tibble</li>
+<li>tidyr</li>
+<li>readr</li>
+<li>purr</li>
+<li>dplyr</li>
+<li>stringr</li>
+<li>forcats</li>
+</ul>
+<p>We will mostly be using the dplyr and ggplot packages.</p>
 </div>
-<div id="installing-r-and-r-studio-1" class="section level2">
-<h2><span class="header-section-number">2.1</span> Installing R and R studio</h2>
-<ol style="list-style-type: decimal">
-<li>Download and install R from <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a></li>
-<li>Download and install RStudio from <a href="https://rstudio.com/products/rstudio/download/#download" class="uri">https://rstudio.com/products/rstudio/download/#download</a></li>
-</ol>
-</div>
-<div id="i-already-have-r-and-rstudio-installed." class="section level2">
-<h2><span class="header-section-number">2.2</span> I already have R and RStudio installed.</h2>
-<ol style="list-style-type: decimal">
-<li>Open RStudio</li>
-<li>Check your R version by entering sessionInfo() on your console.</li>
-<li>The latest release for R was April 24, 2020 (R version 4.0.0, 2020-04-24, Arbor Day). If your R version is older than the most recent version, please follow step 1 in the previous section to update R.</li>
-<li>Check your RStudio version, if your version is older than Version 1.2.5042, please follow step 2 in the previous section to update RStudio.</li>
-</ol>
+<div id="loading-data" class="section level2">
+<h2><span class="header-section-number">3.2</span> Loading Data</h2>
+<p>For this workshop we are going to be using data from the Lahman baseball database. To install the Lahman package use install.packages(“Lahmen”)</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># install lahmen data set. </span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">install.packages</span>(<span class="st">&quot;Lahman&quot;</span>)</a></code></pre></div>
+<p>and load into your enviroment.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">library</span>(Lahman)</a></code></pre></div>
 </div>
 </div>
             </section>
@@ -209,8 +217,8 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="intro-to-r-part-ii.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="installing-r-and-r-studio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dplyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

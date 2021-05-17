@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 dplyr | Introduction 2 R</title>
+  <meta name="description" content="This is an intro to R workshop." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 dplyr | Introduction 2 R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is an intro to R workshop." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 dplyr | Introduction 2 R" />
+  
+  <meta name="twitter:description" content="This is an intro to R workshop." />
+  
+
+<meta name="author" content="Joel Parker" />
+
+
+<meta name="date" content="2021-05-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro-to-r-part-ii.html"/>
+<link rel="next" href="q-and-a.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introduction To R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> The Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#why-use-r-and-r-studio"><i class="fa fa-check"></i><b>1.1</b> Why use R and R Studio</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#more-coding-and-less-point-and-click"><i class="fa fa-check"></i><b>1.1.1</b> More coding, and less point and click</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#wrote-by-the-people-for-the-people"><i class="fa fa-check"></i><b>1.2</b> Wrote by the people for the people</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-has-a-large-community"><i class="fa fa-check"></i><b>1.3</b> R has a large community</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#r-produces-high-quality-graphics"><i class="fa fa-check"></i><b>1.4</b> R produces high-quality graphics</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#open-source"><i class="fa fa-check"></i><b>1.5</b> Open Source</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installing-r-and-r-studio.html"><a href="installing-r-and-r-studio.html"><i class="fa fa-check"></i><b>2</b> Installing R and R Studio</a><ul>
+<li class="chapter" data-level="2.1" data-path="installing-r-and-r-studio.html"><a href="installing-r-and-r-studio.html#installing-r-and-r-studio-1"><i class="fa fa-check"></i><b>2.1</b> Installing R and R studio</a></li>
+<li class="chapter" data-level="2.2" data-path="installing-r-and-r-studio.html"><a href="installing-r-and-r-studio.html#i-already-have-r-and-rstudio-installed."><i class="fa fa-check"></i><b>2.2</b> I already have R and RStudio installed.</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="intro-to-r-part-ii.html"><a href="intro-to-r-part-ii.html"><i class="fa fa-check"></i><b>3</b> Intro to R Part II</a><ul>
+<li class="chapter" data-level="3.1" data-path="intro-to-r-part-ii.html"><a href="intro-to-r-part-ii.html#install-tidyverse"><i class="fa fa-check"></i><b>3.1</b> Install tidyverse</a></li>
+<li class="chapter" data-level="3.2" data-path="intro-to-r-part-ii.html"><a href="intro-to-r-part-ii.html#loading-data"><i class="fa fa-check"></i><b>3.2</b> Loading Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>4</b> dplyr</a><ul>
+<li class="chapter" data-level="4.1" data-path="dplyr.html"><a href="dplyr.html#batting-data."><i class="fa fa-check"></i><b>4.1</b> Batting data.</a></li>
+<li class="chapter" data-level="4.2" data-path="dplyr.html"><a href="dplyr.html#filter"><i class="fa fa-check"></i><b>4.2</b> filter</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="dplyr.html"><a href="dplyr.html#challenge"><i class="fa fa-check"></i><b>4.2.1</b> Challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="dplyr.html"><a href="dplyr.html#group_by"><i class="fa fa-check"></i><b>4.3</b> group_by</a></li>
+<li class="chapter" data-level="4.4" data-path="dplyr.html"><a href="dplyr.html#mutate"><i class="fa fa-check"></i><b>4.4</b> Mutate</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="dplyr.html"><a href="dplyr.html#challenge-1"><i class="fa fa-check"></i><b>4.4.1</b> Challenge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="q-and-a.html"><a href="q-and-a.html"><i class="fa fa-check"></i><b>5</b> Q and A</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction 2 R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dplyr" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> dplyr</h1>
+<p>dplyr has many usefull functions and it is not nessisary to remember all of the functions. Cheat sheets have be created to help us we get stuck. The dplyr cheat sheet can be found here: <a href="https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf" class="uri">https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf</a></p>
+<div id="batting-data." class="section level2">
+<h2><span class="header-section-number">4.1</span> Batting data.</h2>
+<p>The Lahmen database consists of many datasets. For this we will be using the teams data set. You can load this into your enviroment with the data function.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">data</span>(Teams)</a></code></pre></div>
+<p>Check your R enviroment. You should see the Teams data loaded. </p>
+<p>Use the head function to see the first 10 rows of data.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># View the first 10 rows. </span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">head</span>(Teams,<span class="dt">n=</span><span class="dv">10</span>)</a></code></pre></div>
+<pre><code>##    yearID lgID teamID franchID divID Rank  G Ghome  W  L DivWin WCWin LgWin WSWin   R   AB   H X2B X3B HR BB SO SB CS HBP SF  RA  ER  ERA CG SHO SV IPouts  HA HRA BBA
+## 1    1871   NA    BS1      BNA  &lt;NA&gt;    3 31    NA 20 10   &lt;NA&gt;  &lt;NA&gt;     N  &lt;NA&gt; 401 1372 426  70  37  3 60 19 73 16  NA NA 303 109 3.55 22   1  3    828 367   2  42
+## 2    1871   NA    CH1      CNA  &lt;NA&gt;    2 28    NA 19  9   &lt;NA&gt;  &lt;NA&gt;     N  &lt;NA&gt; 302 1196 323  52  21 10 60 22 69 21  NA NA 241  77 2.76 25   0  1    753 308   6  28
+## 3    1871   NA    CL1      CFC  &lt;NA&gt;    8 29    NA 10 19   &lt;NA&gt;  &lt;NA&gt;     N  &lt;NA&gt; 249 1186 328  35  40  7 26 25 18  8  NA NA 341 116 4.11 23   0  0    762 346  13  53
+## 4    1871   NA    FW1      KEK  &lt;NA&gt;    7 19    NA  7 12   &lt;NA&gt;  &lt;NA&gt;     N  &lt;NA&gt; 137  746 178  19   8  2 33  9 16  4  NA NA 243  97 5.17 19   1  0    507 261   5  21
+## 5    1871   NA    NY2      NNA  &lt;NA&gt;    5 33    NA 16 17   &lt;NA&gt;  &lt;NA&gt;     N  &lt;NA&gt; 302 1404 403  43  21  1 33 15 46 15  NA NA 313 121 3.72 32   1  0    879 373   7  42
+## 6    1871   NA    PH1      PNA  &lt;NA&gt;    1 28    NA 21  7   &lt;NA&gt;  &lt;NA&gt;     Y  &lt;NA&gt; 376 1281 410  66  27  9 46 23 56 12  NA NA 266 137 4.95 27   0  0    747 329   3  53
+## 7    1871   NA    RC1      ROK  &lt;NA&gt;    9 25    NA  4 21   &lt;NA&gt;  &lt;NA&gt;     N  &lt;NA&gt; 231 1036 274  44  25  3 38 30 53 10  NA NA 287 108 4.30 23   1  0    678 315   3  34
+## 8    1871   NA    TRO      TRO  &lt;NA&gt;    6 29    NA 13 15   &lt;NA&gt;  &lt;NA&gt;     N  &lt;NA&gt; 351 1248 384  51  34  6 49 19 62 24  NA NA 362 153 5.51 28   0  0    750 431   4  75
+## 9    1871   NA    WS3      OLY  &lt;NA&gt;    4 32    NA 15 15   &lt;NA&gt;  &lt;NA&gt;     N  &lt;NA&gt; 310 1353 375  54  26  6 48 13 48 13  NA NA 303 137 4.37 32   0  0    846 371   4  45
+## 10   1872   NA    BL1      BLC  &lt;NA&gt;    2 58    NA 35 19   &lt;NA&gt;  &lt;NA&gt;     N  &lt;NA&gt; 617 2571 753 106  31 14 29 28 53 18  NA NA 434 166 2.90 48   1  1   1548 573   3  63
+##    SOA   E DP    FP                    name                              park attendance BPF PPF teamIDBR teamIDlahman45 teamIDretro
+## 1   23 243 24 0.834    Boston Red Stockings               South End Grounds I         NA 103  98      BOS            BS1         BS1
+## 2   22 229 16 0.829 Chicago White Stockings           Union Base-Ball Grounds         NA 104 102      CHI            CH1         CH1
+## 3   34 234 15 0.818  Cleveland Forest Citys      National Association Grounds         NA  96 100      CLE            CL1         CL1
+## 4   17 163  8 0.803    Fort Wayne Kekiongas                    Hamilton Field         NA 101 107      KEK            FW1         FW1
+## 5   22 235 14 0.840        New York Mutuals          Union Grounds (Brooklyn)         NA  90  88      NYU            NY2         NY2
+## 6   16 194 13 0.845  Philadelphia Athletics          Jefferson Street Grounds         NA 102  98      ATH            PH1         PH1
+## 7   16 220 14 0.821   Rockford Forest Citys Agricultural Society Fair Grounds         NA  97  99      ROK            RC1         RC1
+## 8   12 198 22 0.845          Troy Haymakers                Haymakers&#39; Grounds         NA 101 100      TRO            TRO         TRO
+## 9   13 218 20 0.850     Washington Olympics                  Olympics Grounds         NA  94  98      OLY            WS3         WS3
+## 10  77 432 22 0.830      Baltimore Canaries                    Newington Park         NA 106 102      BAL            BL1         BL1</code></pre>
+</div>
+<div id="filter" class="section level2">
+<h2><span class="header-section-number">4.2</span> filter</h2>
+<p>Typically we what are called pipes %&gt;% to edit and manipulate data. We will start by filtering data. Lets say we were only interested in the data that was collected after 1950. We can use the filter function from dplyr to get what we want.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># Check the class of the year variable</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">class</span>(Teams<span class="op">$</span>yearID)</a></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># year is stored as an integer so we will need to use integer values to filter. </span></a>
+<a class="sourceLine" id="cb10-2" title="2"></a>
+<a class="sourceLine" id="cb10-3" title="3"></a>
+<a class="sourceLine" id="cb10-4" title="4"></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="co"># data after 1950</span></a>
+<a class="sourceLine" id="cb10-6" title="6"></a>
+<a class="sourceLine" id="cb10-7" title="7">Teams <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="st">  </span><span class="kw">filter</span>(yearID <span class="op">&gt;</span><span class="st"> </span><span class="dv">1950</span>)</a></code></pre></div>
+<pre><code>##    yearID lgID teamID franchID divID Rank   G Ghome  W   L DivWin WCWin LgWin WSWin   R   AB    H X2B X3B  HR  BB  SO SB CS HBP SF  RA  ER  ERA CG SHO SV IPouts   HA
+## 1    1951   AL    BOS      BOS  &lt;NA&gt;    3 154    75 87  67   &lt;NA&gt;  &lt;NA&gt;     N     N 804 5378 1428 233  32 127 756 594 20 21  NA NA 725 644 4.14 46   7 24   4197 1413
+## 2    1951   NL    BRO      LAD  &lt;NA&gt;    2 158    78 97  60   &lt;NA&gt;  &lt;NA&gt;     N     N 855 5492 1511 249  37 184 603 649 89 70  NA NA 672 613 3.88 64  10 13   4269 1360
+## 3    1951   NL    BSN      ATL  &lt;NA&gt;    4 155    78 76  78   &lt;NA&gt;  &lt;NA&gt;     N     N 723 5293 1385 234  37 130 565 617 80 34  NA NA 662 579 3.75 73  16 12   4167 1378
+## 4    1951   AL    CHA      CHW  &lt;NA&gt;    4 155    78 81  73   &lt;NA&gt;  &lt;NA&gt;     N     N 714 5378 1453 229  64  86 596 524 99 70  NA NA 644 551 3.50 74  11 14   4254 1353
+## 5    1951   NL    CHN      CHC  &lt;NA&gt;    8 155    77 62  92   &lt;NA&gt;  &lt;NA&gt;     N     N 614 5307 1327 200  47 103 477 647 63 30  NA NA 750 668 4.34 48  10 10   4155 1416
+## 6    1951   NL    CIN      CIN  &lt;NA&gt;    6 155    77 68  86   &lt;NA&gt;  &lt;NA&gt;     N     N 559 5285 1309 215  33  88 415 577 44 40  NA NA 667 571 3.70 55  14 23   4170 1357
+## 7    1951   AL    CLE      CLE  &lt;NA&gt;    2 155    77 93  61   &lt;NA&gt;  &lt;NA&gt;     N     N 696 5250 1346 208  35 140 606 632 52 35  NA NA 594 522 3.38 76  10 19   4173 1287
+## 8    1951   AL    DET      DET  &lt;NA&gt;    5 154    77 73  81   &lt;NA&gt;  &lt;NA&gt;     N     N 685 5336 1413 231  35 104 568 525 37 34  NA NA 741 660 4.29 51   8 17   4152 1385
+## 9    1951   NL    NY1      SFG  &lt;NA&gt;    1 157    78 98  59   &lt;NA&gt;  &lt;NA&gt;     Y     N 781 5360 1396 201  53 179 671 624 55 34  NA NA 641 546 3.48 64   9 18   4236 1334
+## 10   1951   AL    NYA      NYY  &lt;NA&gt;    1 154    78 98  56   &lt;NA&gt;  &lt;NA&gt;     Y     Y 798 5194 1395 208  48 140 605 547 78 39  NA NA 621 541 3.56 66  24 22   4101 1290
+## 11   1951   AL    PHA      OAK  &lt;NA&gt;    6 154    79 70  84   &lt;NA&gt;  &lt;NA&gt;     N     N 736 5277 1381 262  43 102 677 565 47 36  NA NA 745 674 4.47 52   7 22   4074 1421
+## 12   1951   NL    PHI      PHI  &lt;NA&gt;    5 154    77 73  81   &lt;NA&gt;  &lt;NA&gt;     N     N 648 5332 1384 199  47 108 505 525 63 28  NA NA 644 586 3.81 57  19 15   4152 1373
+## 13   1951   NL    PIT      PIT  &lt;NA&gt;    7 155    78 64  90   &lt;NA&gt;  &lt;NA&gt;     N     N 689 5318 1372 218  56 137 557 615 29 27  NA NA 845 734 4.79 40   9 22   4140 1479
+## 14   1951   AL    SLA      BAL  &lt;NA&gt;    8 154    77 52 102   &lt;NA&gt;  &lt;NA&gt;     N     N 611 5219 1288 223  47  86 521 693 35 38  NA NA 882 789 5.18 56   5  9   4110 1525
+## 15   1951   NL    SLN      STL  &lt;NA&gt;    3 155    79 81  73   &lt;NA&gt;  &lt;NA&gt;     N     N 683 5317 1404 230  57  95 569 492 30 30  NA NA 671 609 3.95 58   9 23   4161 1391
+## 16   1951   AL    WS1      MIN  &lt;NA&gt;    7 154    76 62  92   &lt;NA&gt;  &lt;NA&gt;     N     N 672 5329 1399 242  45  54 560 515 45 38  NA NA 764 681 4.49 58   6 13   4098 1429
+## 17   1952   AL    BOS      BOS  &lt;NA&gt;    6 154    77 76  78   &lt;NA&gt;  &lt;NA&gt;     N     N 668 5246 1338 233  34 113 542 739 59 47  NA NA 658 579 3.80 53   7 24   4116 1332
+## 18   1952   NL    BRO      LAD  &lt;NA&gt;    1 155    80 96  57   &lt;NA&gt;  &lt;NA&gt;     Y     N 775 5266 1380 199  32 153 663 699 90 49  NA NA 603 549 3.53 45  11 24   4197 1295
+## 19   1952   NL    BSN      ATL  &lt;NA&gt;    7 155    77 64  89   &lt;NA&gt;  &lt;NA&gt;     N     N 569 5221 1214 187  31 110 483 711 58 34  NA NA 651 586 3.78 63  11 13   4188 1388
+## 20   1952   AL    CHA      CHW  &lt;NA&gt;    3 156    79 81  73   &lt;NA&gt;  &lt;NA&gt;     N     N 610 5316 1337 199  38  80 541 521 61 38  NA NA 568 511 3.25 53  15 28   4248 1251
+##    HRA BBA SOA   E  DP    FP                   name                park attendance BPF PPF teamIDBR teamIDlahman45 teamIDretro
+## 1  100 599 658 138 184 0.977         Boston Red Sox      Fenway Park II    1312282 110 109      BOS            BOS         BOS
+## 2  150 549 693 128 192 0.979       Brooklyn Dodgers        Ebbets Field    1282628 102  99      BRO            BRO         BRO
+## 3   96 595 604 145 157 0.976          Boston Braves        Braves Field     487475  93  93      BSN            BSN         BSN
+## 4  109 549 572 151 176 0.975      Chicago White Sox       Comiskey Park    1328234  98  98      CHW            CHA         CHA
+## 5  125 572 544 181 161 0.971           Chicago Cubs       Wrigley Field     894415 102 104      CHC            CHN         CHN
+## 6  119 490 584 140 141 0.977        Cincinnati Reds       Crosley Field     588268 101 103      CIN            CIN         CIN
+## 7   86 577 642 134 151 0.978      Cleveland Indians   Cleveland Stadium    1704984  95  92      CLE            CLE         CLE
+## 8  102 602 597 163 166 0.974         Detroit Tigers      Briggs Stadium    1132641 100 101      DET            DET         DET
+## 9  148 482 625 170 175 0.972        New York Giants     Polo Grounds IV    1059539 101  99      NYG            NY1         NY1
+## 10  92 562 664 144 190 0.975       New York Yankees    Yankee Stadium I    1950107  97  93      NYY            NYA         NYA
+## 11 109 569 437 135 204 0.978 Philadelphia Athletics          Shibe Park     465469 101 103      PHA            PHA         PHA
+## 12 110 497 570 138 146 0.977  Philadelphia Phillies          Shibe Park     937658  99  97      PHI            PHI         PHI
+## 13 157 609 580 170 178 0.972     Pittsburgh Pirates        Forbes Field     980590 102 106      PIT            PIT         PIT
+## 14 131 801 550 171 179 0.971       St. Louis Browns Sportsman&#39;s Park IV     293790 103 107      SLB            SLA         SLA
+## 15 119 568 546 125 187 0.980    St. Louis Cardinals Sportsman&#39;s Park IV    1013429 100 100      STL            SLN         SLN
+## 16 110 630 475 160 148 0.973    Washington Senators  Griffith Stadium I     695167  98 100      WSH            WS1         WS1
+## 17 107 623 624 143 181 0.976         Boston Red Sox      Fenway Park II    1115750 108 107      BOS            BOS         BOS
+## 18 121 544 773 105 169 0.982       Brooklyn Dodgers        Ebbets Field    1088704 102  98      BRO            BRO         BRO
+## 19 106 525 687 153 143 0.975          Boston Braves        Braves Field     281278  97  98      BSN            BSN         BSN
+## 20  86 578 774 123 158 0.980      Chicago White Sox       Comiskey Park    1231675 101  99      CHW            CHA         CHA
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 1736 rows ]</code></pre>
+<p>You can use the &amp; or | opperators if multiple conditions need to be met. Lets use the filter functions to meet the following conditions</p>
+<ul>
+<li>yearID after 1950</li>
+<li>franchID is equal to BOS (Boston)</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co">## Filter with multiple conditions. </span></a>
+<a class="sourceLine" id="cb12-2" title="2">Teams <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="st">  </span><span class="kw">filter</span>(yearID <span class="op">&gt;</span><span class="st"> </span><span class="dv">1950</span> <span class="op">&amp;</span><span class="st"> </span>franchID <span class="op">==</span><span class="st">&quot;BOS&quot;</span> )</a></code></pre></div>
+<pre><code>##    yearID lgID teamID franchID divID Rank   G Ghome  W   L DivWin WCWin LgWin WSWin   R   AB    H X2B X3B  HR  BB   SO SB CS HBP SF  RA  ER  ERA CG SHO SV IPouts   HA
+## 1    1951   AL    BOS      BOS  &lt;NA&gt;    3 154    75 87  67   &lt;NA&gt;  &lt;NA&gt;     N     N 804 5378 1428 233  32 127 756  594 20 21  NA NA 725 644 4.14 46   7 24   4197 1413
+## 2    1952   AL    BOS      BOS  &lt;NA&gt;    6 154    77 76  78   &lt;NA&gt;  &lt;NA&gt;     N     N 668 5246 1338 233  34 113 542  739 59 47  NA NA 658 579 3.80 53   7 24   4116 1332
+## 3    1953   AL    BOS      BOS  &lt;NA&gt;    4 153    76 84  69   &lt;NA&gt;  &lt;NA&gt;     N     N 656 5246 1385 255  37 101 496  601 33 45  NA NA 632 546 3.58 41  15 37   4119 1333
+## 4    1954   AL    BOS      BOS  &lt;NA&gt;    4 156    79 69  85   &lt;NA&gt;  &lt;NA&gt;     N     N 700 5399 1436 244  41 123 654  660 51 30  NA NA 728 629 4.01 41  10 22   4236 1434
+## 5    1955   AL    BOS      BOS  &lt;NA&gt;    4 154    78 84  70   &lt;NA&gt;  &lt;NA&gt;     N     N 755 5273 1392 241  39 137 707  733 43 17  NA NA 652 572 3.72 44   9 34   4152 1333
+## 6    1956   AL    BOS      BOS  &lt;NA&gt;    4 155    78 84  70   &lt;NA&gt;  &lt;NA&gt;     N     N 780 5349 1473 261  45 139 727  687 28 19  NA NA 751 648 4.17 50   8 20   4194 1354
+## 7    1957   AL    BOS      BOS  &lt;NA&gt;    3 154    77 82  72   &lt;NA&gt;  &lt;NA&gt;     N     N 721 5267 1380 231  32 153 624  739 29 21  NA NA 668 593 3.88 55   9 23   4128 1391
+## 8    1958   AL    BOS      BOS  &lt;NA&gt;    3 155    77 79  75   &lt;NA&gt;  &lt;NA&gt;     N     N 697 5218 1335 229  30 155 638  820 29 22  NA NA 691 601 3.92 44   5 28   4140 1396
+## 9    1959   AL    BOS      BOS  &lt;NA&gt;    5 154    77 75  79   &lt;NA&gt;  &lt;NA&gt;     N     N 726 5225 1335 248  28 125 626  810 68 25  NA NA 696 632 4.17 38   9 25   4092 1386
+## 10   1960   AL    BOS      BOS  &lt;NA&gt;    7 154    77 65  89   &lt;NA&gt;  &lt;NA&gt;     N     N 658 5215 1359 234  32 124 570  798 34 28  NA NA 775 699 4.62 34   6 23   4083 1440
+## 11   1961   AL    BOS      BOS  &lt;NA&gt;    6 163    82 76  86   &lt;NA&gt;  &lt;NA&gt;     N     N 729 5508 1401 251  37 112 647  847 56 36  NA NA 792 687 4.29 35   6 30   4326 1472
+## 12   1962   AL    BOS      BOS  &lt;NA&gt;    8 160    79 76  84   &lt;NA&gt;  &lt;NA&gt;     N     N 707 5530 1429 257  53 146 525  923 39 33  NA NA 756 674 4.22 34  12 40   4311 1416
+## 13   1963   AL    BOS      BOS  &lt;NA&gt;    7 161    80 76  85   &lt;NA&gt;  &lt;NA&gt;     N     N 666 5575 1403 247  34 171 475  954 27 16  NA NA 704 639 3.97 29   7 32   4347 1367
+## 14   1964   AL    BOS      BOS  &lt;NA&gt;    8 162    81 72  90   &lt;NA&gt;  &lt;NA&gt;     N     N 688 5513 1425 253  29 186 504  917 18 16  NA NA 793 711 4.50 21   9 38   4266 1464
+## 15   1965   AL    BOS      BOS  &lt;NA&gt;    9 162    81 62 100   &lt;NA&gt;  &lt;NA&gt;     N     N 669 5487 1378 244  40 165 607  964 47 24  NA NA 791 678 4.24 33   9 25   4317 1443
+## 16   1966   AL    BOS      BOS  &lt;NA&gt;    9 162    81 72  90   &lt;NA&gt;  &lt;NA&gt;     N     N 655 5498 1318 228  44 145 542 1020 35 24  NA NA 731 637 3.92 32  10 31   4389 1402
+## 17   1967   AL    BOS      BOS  &lt;NA&gt;    1 162    81 92  70   &lt;NA&gt;  &lt;NA&gt;     Y     N 722 5471 1394 216  39 158 522 1020 68 59  NA NA 614 545 3.36 41   9 44   4377 1307
+## 18   1968   AL    BOS      BOS  &lt;NA&gt;    4 162    81 86  76   &lt;NA&gt;  &lt;NA&gt;     N     N 614 5303 1253 207  17 125 582  974 76 62  NA NA 611 535 3.33 55  17 31   4341 1303
+## 19   1969   AL    BOS      BOS     E    3 162    81 87  75      N  &lt;NA&gt;     N     N 743 5494 1381 234  37 197 658  923 41 47  NA NA 736 639 3.92 30   7 41   4398 1423
+## 20   1970   AL    BOS      BOS     E    3 162    81 87  75      N  &lt;NA&gt;     N     N 786 5535 1450 252  28 203 594  855 50 48  40 47 722 622 3.87 38   8 44   4339 1391
+##    HRA BBA  SOA   E  DP    FP           name           park attendance BPF PPF teamIDBR teamIDlahman45 teamIDretro
+## 1  100 599  658 138 184 0.977 Boston Red Sox Fenway Park II    1312282 110 109      BOS            BOS         BOS
+## 2  107 623  624 143 181 0.976 Boston Red Sox Fenway Park II    1115750 108 107      BOS            BOS         BOS
+## 3   92 584  642 147 173 0.976 Boston Red Sox Fenway Park II    1026133 105 105      BOS            BOS         BOS
+## 4  118 612  707 176 163 0.972 Boston Red Sox Fenway Park II     931127 111 110      BOS            BOS         BOS
+## 5  128 582  674 136 140 0.977 Boston Red Sox Fenway Park II    1203200 110 109      BOS            BOS         BOS
+## 6  130 668  712 169 168 0.972 Boston Red Sox Fenway Park II    1137158 113 111      BOS            BOS         BOS
+## 7  116 498  692 149 179 0.976 Boston Red Sox Fenway Park II    1181087 106 105      BOS            BOS         BOS
+## 8  121 521  695 145 172 0.976 Boston Red Sox Fenway Park II    1077047 106 106      BOS            BOS         BOS
+## 9  135 589  724 130 167 0.978 Boston Red Sox Fenway Park II     984102 104 104      BOS            BOS         BOS
+## 10 127 580  767 140 156 0.976 Boston Red Sox Fenway Park II    1129866 103 103      BOS            BOS         BOS
+## 11 167 679  831 143 140 0.977 Boston Red Sox Fenway Park II     850589 102 103      BOS            BOS         BOS
+## 12 159 632  923 128 152 0.979 Boston Red Sox Fenway Park II     733080 103 104      BOS            BOS         BOS
+## 13 152 539 1009 132 119 0.978 Boston Red Sox Fenway Park II     942642 103 104      BOS            BOS         BOS
+## 14 178 571 1094 136 123 0.977 Boston Red Sox Fenway Park II     883276 105 106      BOS            BOS         BOS
+## 15 158 543  993 159 129 0.974 Boston Red Sox Fenway Park II     652201 106 108      BOS            BOS         BOS
+## 16 164 577  977 153 153 0.975 Boston Red Sox Fenway Park II     811172 111 112      BOS            BOS         BOS
+## 17 142 477 1010 142 142 0.977 Boston Red Sox Fenway Park II    1727832 109 109      BOS            BOS         BOS
+## 18 115 523  972 128 147 0.979 Boston Red Sox Fenway Park II    1940788 108 107      BOS            BOS         BOS
+## 19 155 685  935 157 178 0.975 Boston Red Sox Fenway Park II    1833246 107 106      BOS            BOS         BOS
+## 20 156 594 1003 156 131 0.974 Boston Red Sox Fenway Park II    1595278 108 107      BOS            BOS         BOS
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 50 rows ]</code></pre>
+<ul>
+<li>yearID after 1950</li>
+<li>franchID is equal to BOS (Boston) or LAD (Los Angelas Dodgers).</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co">## Filter with multiple conditions. </span></a>
+<a class="sourceLine" id="cb14-2" title="2">Teams <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="st">  </span><span class="kw">filter</span>(yearID <span class="op">&gt;</span><span class="st"> </span><span class="dv">1950</span> <span class="op">&amp;</span><span class="st"> </span>(franchID <span class="op">==</span><span class="st">&quot;BOS&quot;</span> <span class="op">|</span><span class="st"> </span>franchID<span class="op">==</span><span class="st">&quot;LAD&quot;</span>))</a></code></pre></div>
+<pre><code>##    yearID lgID teamID franchID divID Rank   G Ghome   W  L DivWin WCWin LgWin WSWin   R   AB    H X2B X3B  HR  BB  SO SB CS HBP SF  RA  ER  ERA CG SHO SV IPouts   HA
+## 1    1951   AL    BOS      BOS  &lt;NA&gt;    3 154    75  87 67   &lt;NA&gt;  &lt;NA&gt;     N     N 804 5378 1428 233  32 127 756 594 20 21  NA NA 725 644 4.14 46   7 24   4197 1413
+## 2    1951   NL    BRO      LAD  &lt;NA&gt;    2 158    78  97 60   &lt;NA&gt;  &lt;NA&gt;     N     N 855 5492 1511 249  37 184 603 649 89 70  NA NA 672 613 3.88 64  10 13   4269 1360
+## 3    1952   AL    BOS      BOS  &lt;NA&gt;    6 154    77  76 78   &lt;NA&gt;  &lt;NA&gt;     N     N 668 5246 1338 233  34 113 542 739 59 47  NA NA 658 579 3.80 53   7 24   4116 1332
+## 4    1952   NL    BRO      LAD  &lt;NA&gt;    1 155    80  96 57   &lt;NA&gt;  &lt;NA&gt;     Y     N 775 5266 1380 199  32 153 663 699 90 49  NA NA 603 549 3.53 45  11 24   4197 1295
+## 5    1953   AL    BOS      BOS  &lt;NA&gt;    4 153    76  84 69   &lt;NA&gt;  &lt;NA&gt;     N     N 656 5246 1385 255  37 101 496 601 33 45  NA NA 632 546 3.58 41  15 37   4119 1333
+## 6    1953   NL    BRO      LAD  &lt;NA&gt;    1 155    78 105 49   &lt;NA&gt;  &lt;NA&gt;     Y     N 955 5373 1529 274  59 208 655 686 90 47  NA NA 689 629 4.10 51  11 29   4140 1337
+## 7    1954   AL    BOS      BOS  &lt;NA&gt;    4 156    79  69 85   &lt;NA&gt;  &lt;NA&gt;     N     N 700 5399 1436 244  41 123 654 660 51 30  NA NA 728 629 4.01 41  10 22   4236 1434
+## 8    1954   NL    BRO      LAD  &lt;NA&gt;    2 154    77  92 62   &lt;NA&gt;  &lt;NA&gt;     N     N 778 5251 1418 246  56 186 634 625 46 39  NA NA 740 667 4.31 39   8 36   4179 1399
+## 9    1955   AL    BOS      BOS  &lt;NA&gt;    4 154    78  84 70   &lt;NA&gt;  &lt;NA&gt;     N     N 755 5273 1392 241  39 137 707 733 43 17  NA NA 652 572 3.72 44   9 34   4152 1333
+## 10   1955   NL    BRO      LAD  &lt;NA&gt;    1 154    77  98 55   &lt;NA&gt;  &lt;NA&gt;     Y     Y 857 5193 1406 230  44 201 674 718 79 56  NA NA 650 563 3.68 46  11 37   4134 1296
+## 11   1956   AL    BOS      BOS  &lt;NA&gt;    4 155    78  84 70   &lt;NA&gt;  &lt;NA&gt;     N     N 780 5349 1473 261  45 139 727 687 28 19  NA NA 751 648 4.17 50   8 20   4194 1354
+## 12   1956   NL    BRO      LAD  &lt;NA&gt;    1 154    77  93 61   &lt;NA&gt;  &lt;NA&gt;     Y     N 720 5098 1315 212  36 179 649 738 65 37  NA NA 601 543 3.57 46  12 30   4104 1251
+## 13   1957   AL    BOS      BOS  &lt;NA&gt;    3 154    77  82 72   &lt;NA&gt;  &lt;NA&gt;     N     N 721 5267 1380 231  32 153 624 739 29 21  NA NA 668 593 3.88 55   9 23   4128 1391
+## 14   1957   NL    BRO      LAD  &lt;NA&gt;    3 154    77  84 70   &lt;NA&gt;  &lt;NA&gt;     N     N 690 5242 1325 188  38 147 550 848 60 34  NA NA 591 521 3.35 44  18 29   4197 1285
+## 15   1958   AL    BOS      BOS  &lt;NA&gt;    3 155    77  79 75   &lt;NA&gt;  &lt;NA&gt;     N     N 697 5218 1335 229  30 155 638 820 29 22  NA NA 691 601 3.92 44   5 28   4140 1396
+## 16   1958   NL    LAN      LAD  &lt;NA&gt;    7 154    77  71 83   &lt;NA&gt;  &lt;NA&gt;     N     N 668 5173 1297 166  50 172 495 850 73 47  NA NA 761 679 4.47 30   7 31   4104 1399
+## 17   1959   AL    BOS      BOS  &lt;NA&gt;    5 154    77  75 79   &lt;NA&gt;  &lt;NA&gt;     N     N 726 5225 1335 248  28 125 626 810 68 25  NA NA 696 632 4.17 38   9 25   4092 1386
+## 18   1959   NL    LAN      LAD  &lt;NA&gt;    1 156    78  88 68   &lt;NA&gt;  &lt;NA&gt;     Y     Y 705 5282 1360 196  46 148 591 891 84 51  NA NA 670 594 3.79 43  14 26   4233 1317
+## 19   1960   AL    BOS      BOS  &lt;NA&gt;    7 154    77  65 89   &lt;NA&gt;  &lt;NA&gt;     N     N 658 5215 1359 234  32 124 570 798 34 28  NA NA 775 699 4.62 34   6 23   4083 1440
+## 20   1960   NL    LAN      LAD  &lt;NA&gt;    4 154    77  82 72   &lt;NA&gt;  &lt;NA&gt;     N     N 662 5227 1333 216  38 126 529 837 95 53  NA NA 593 528 3.40 46  13 20   4194 1218
+##    HRA BBA  SOA   E  DP    FP                name                          park attendance BPF PPF teamIDBR teamIDlahman45 teamIDretro
+## 1  100 599  658 138 184 0.977      Boston Red Sox                Fenway Park II    1312282 110 109      BOS            BOS         BOS
+## 2  150 549  693 128 192 0.979    Brooklyn Dodgers                  Ebbets Field    1282628 102  99      BRO            BRO         BRO
+## 3  107 623  624 143 181 0.976      Boston Red Sox                Fenway Park II    1115750 108 107      BOS            BOS         BOS
+## 4  121 544  773 105 169 0.982    Brooklyn Dodgers                  Ebbets Field    1088704 102  98      BRO            BRO         BRO
+## 5   92 584  642 147 173 0.976      Boston Red Sox                Fenway Park II    1026133 105 105      BOS            BOS         BOS
+## 6  169 509  817 118 161 0.980    Brooklyn Dodgers                  Ebbets Field    1163419 103 100      BRO            BRO         BRO
+## 7  118 612  707 176 163 0.972      Boston Red Sox                Fenway Park II     931127 111 110      BOS            BOS         BOS
+## 8  164 533  762 129 138 0.978    Brooklyn Dodgers                  Ebbets Field    1020531 104 101      BRO            BRO         BRO
+## 9  128 582  674 136 140 0.977      Boston Red Sox                Fenway Park II    1203200 110 109      BOS            BOS         BOS
+## 10 168 483  773 133 156 0.978    Brooklyn Dodgers                  Ebbets Field    1033589 104 101      BRO            BRO         BRO
+## 11 130 668  712 169 168 0.972      Boston Red Sox                Fenway Park II    1137158 113 111      BOS            BOS         BOS
+## 12 171 441  772 111 149 0.981    Brooklyn Dodgers                  Ebbets Field    1213562 109 107      BRO            BRO         BRO
+## 13 116 498  692 149 179 0.976      Boston Red Sox                Fenway Park II    1181087 106 105      BOS            BOS         BOS
+## 14 144 456  891 127 136 0.979    Brooklyn Dodgers                  Ebbets Field    1028258 109 107      BRO            BRO         BRO
+## 15 121 521  695 145 172 0.976      Boston Red Sox                Fenway Park II    1077047 106 106      BOS            BOS         BOS
+## 16 173 606  855 145 198 0.975 Los Angeles Dodgers Los Angeles Memorial Coliseum    1845556 104 104      LAD            LAN         LAN
+## 17 135 589  724 130 167 0.978      Boston Red Sox                Fenway Park II     984102 104 104      BOS            BOS         BOS
+## 18 157 614 1077 114 154 0.981 Los Angeles Dodgers Los Angeles Memorial Coliseum    2071045 107 107      LAD            LAN         LAN
+## 19 127 580  767 140 156 0.976      Boston Red Sox                Fenway Park II    1129866 103 103      BOS            BOS         BOS
+## 20 154 564 1122 124 142 0.979 Los Angeles Dodgers Los Angeles Memorial Coliseum    2253887 106 105      LAD            LAN         LAN
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 120 rows ]</code></pre>
+<div id="challenge" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Challenge</h3>
+<p>Use the teams data and the filter function to meet the following criteria.</p>
+<ul>
+<li>yearID greater than 1900</li>
+<li>franchID equal to “LAD”, “STL” or “MIN”</li>
+<li>save this dataframe as plot.data.</li>
+</ul>
+<p>Hint:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">plot.data &lt;-<span class="st"> </span>Teams <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="st">  </span><span class="kw">filter</span>()</a></code></pre></div>
+</div>
+</div>
+<div id="group_by" class="section level2">
+<h2><span class="header-section-number">4.3</span> group_by</h2>
+<p>Somtimes your data may be in different groups. Lets say we are interested in how many games per year each franchise wins. We can use group_by and Summary.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co">## Summarise wins per year for each team.</span></a>
+<a class="sourceLine" id="cb17-2" title="2">Teams <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(franchID) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">wins_per_year =</span> <span class="kw">mean</span>(W))</a></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 120 x 2
+##    franchID wins_per_year
+##    &lt;fct&gt;            &lt;dbl&gt;
+##  1 ALT                6  
+##  2 ANA               78.9
+##  3 ARI               77.7
+##  4 ATH               14  
+##  5 ATL               74.0
+##  6 BAL               73.3
+##  7 BFB               36  
+##  8 BFL               77  
+##  9 BLC               26  
+## 10 BLO               62.9
+## # ... with 110 more rows</code></pre>
+</div>
+<div id="mutate" class="section level2">
+<h2><span class="header-section-number">4.4</span> Mutate</h2>
+<p>Many times it is nessisary to create new variables or manipulate old ones. You can use the mutate function to do this. </p>
+<ul>
+<li>Lets create create a new variable call win_percentage</li>
+<li>Also use the select function to only look at the yearID,franchID,W,G and win_percentage</li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">Teams <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">win_percentage =</span> W<span class="op">/</span>G) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-3" title="3"><span class="st">  </span><span class="kw">select</span>(yearID,franchID,W,G,win_percentage)</a></code></pre></div>
+<pre><code>##     yearID franchID  W   G win_percentage
+## 1     1871      BNA 20  31     0.64516129
+## 2     1871      CNA 19  28     0.67857143
+## 3     1871      CFC 10  29     0.34482759
+## 4     1871      KEK  7  19     0.36842105
+## 5     1871      NNA 16  33     0.48484848
+## 6     1871      PNA 21  28     0.75000000
+## 7     1871      ROK  4  25     0.16000000
+## 8     1871      TRO 13  29     0.44827586
+## 9     1871      OLY 15  32     0.46875000
+## 10    1872      BLC 35  58     0.60344828
+## 11    1872      ECK  3  29     0.10344828
+## 12    1872      BRA  9  37     0.24324324
+## 13    1872      BNA 39  48     0.81250000
+## 14    1872      CFC  6  22     0.27272727
+## 15    1872      MAN  5  24     0.20833333
+## 16    1872      NNA 34  56     0.60714286
+## 17    1872      PNA 30  47     0.63829787
+## 18    1872      TRO 15  25     0.60000000
+## 19    1872      OLY  2   9     0.22222222
+## 20    1872      NAT  0  11     0.00000000
+## 21    1873      BLC 34  57     0.59649123
+## 22    1873      MAR  0   6     0.00000000
+## 23    1873      BRA 17  55     0.30909091
+## 24    1873      BNA 43  60     0.71666667
+## 25    1873      RES  2  23     0.08695652
+## 26    1873      NNA 29  53     0.54716981
+## 27    1873      PNA 28  52     0.53846154
+## 28    1873      PWS 36  53     0.67924528
+## 29    1873      WBL  8  39     0.20512821
+## 30    1874      BLC  9  47     0.19148936
+## 31    1874      BRA 22  56     0.39285714
+## 32    1874      BNA 52  71     0.73239437
+## 33    1874      CNA 28  59     0.47457627
+## 34    1874      HNA 16  53     0.30188679
+## 35    1874      NNA 42  65     0.64615385
+## 36    1874      PNA 33  55     0.60000000
+## 37    1874      PWS 29  58     0.50000000
+## 38    1875      BRA  2  44     0.04545455
+## 39    1875      BNA 71  82     0.86585366
+## 40    1875      CNA 30  69     0.43478261
+## 41    1875      HNA 54  86     0.62790698
+## 42    1875      WES  1  13     0.07692308
+## 43    1875      NHV  7  47     0.14893617
+## 44    1875      NNA 30  71     0.42253521
+## 45    1875      PNA 53  77     0.68831169
+## 46    1875      PWS 37  70     0.52857143
+## 47    1875      CEN  2  14     0.14285714
+## 48    1875      SLR  4  19     0.21052632
+## 49    1875      SNA 39  70     0.55714286
+## 50    1875      WNT  5  28     0.17857143
+## 51    1876      ATL 39  70     0.55714286
+## 52    1876      CHC 52  66     0.78787879
+## 53    1876      CNR  9  65     0.13846154
+## 54    1876      HAR 47  69     0.68115942
+## 55    1876      LGR 30  69     0.43478261
+## 56    1876      NYU 21  57     0.36842105
+## 57    1876      ATH 14  60     0.23333333
+## 58    1876      SBS 45  64     0.70312500
+## 59    1877      ATL 42  61     0.68852459
+## 60    1877      CHC 26  60     0.43333333
+## 61    1877      CNR 15  58     0.25862069
+## 62    1877      HAR 31  60     0.51666667
+## 63    1877      LGR 35  61     0.57377049
+## 64    1877      SBS 28  60     0.46666667
+## 65    1878      ATL 41  60     0.68333333
+## 66    1878      CHC 30  61     0.49180328
+## 67    1878      CNR 37  61     0.60655738
+## 68    1878      IBL 24  63     0.38095238
+## 69    1878      MLG 15  61     0.24590164
+## 70    1878      PRO 33  62     0.53225806
+## 71    1879      BUF 46  79     0.58227848
+## 72    1879      ATL 54  84     0.64285714
+## 73    1879      CHC 46  83     0.55421687
+## 74    1879      CBL 27  82     0.32926829
+## 75    1879      CNR 43  81     0.53086420
+## 76    1879      PRO 59  85     0.69411765
+## 77    1879      SYR 22  71     0.30985915
+## 78    1879      TRT 19  77     0.24675325
+## 79    1880      BUF 24  85     0.28235294
+## 80    1880      ATL 40  86     0.46511628
+## 81    1880      CHC 67  86     0.77906977
+## 82    1880      CBL 47  85     0.55294118
+## 83    1880      CNR 21  83     0.25301205
+## 84    1880      PRO 52  87     0.59770115
+## 85    1880      TRT 41  83     0.49397590
+## 86    1880      WOR 40  85     0.47058824
+## 87    1881      BUF 45  83     0.54216867
+## 88    1881      ATL 38  83     0.45783133
+## 89    1881      CHC 56  84     0.66666667
+## 90    1881      CBL 36  85     0.42352941
+## 91    1881      DTN 41  84     0.48809524
+## 92    1881      PRO 47  85     0.55294118
+## 93    1881      TRT 39  85     0.45882353
+## 94    1881      WOR 32  83     0.38554217
+## 95    1882      BUF 45  84     0.53571429
+## 96    1882      BLO 19  74     0.25675676
+## 97    1882      ATL 45  85     0.52941176
+## 98    1882      CHC 55  84     0.65476190
+## 99    1882      CBL 42  84     0.50000000
+## 100   1882      CIN 55  80     0.68750000
+## 101   1882      DTN 42  86     0.48837209
+## 102   1882      LOU 42  79     0.53164557
+## 103   1882      PHA 41  75     0.54666667
+## 104   1882      PRO 52  84     0.61904762
+## 105   1882      PIT 39  79     0.49367089
+## 106   1882      STL 37  79     0.46835443
+## 107   1882      TRT 35  85     0.41176471
+## 108   1882      WOR 18  84     0.21428571
+## 109   1883      BUF 52  98     0.53061224
+## 110   1883      BLO 28  96     0.29166667
+## 111   1883      ATL 63  98     0.64285714
+## 112   1883      CHC 59  98     0.60204082
+## 113   1883      CBL 55 100     0.55000000
+## 114   1883      CBK 32  97     0.32989691
+## 115   1883      CIN 61  98     0.62244898
+## 116   1883      DTN 40 101     0.39603960
+## 117   1883      LOU 52  98     0.53061224
+## 118   1883      SFG 46  98     0.46938776
+## 119   1883      NYP 54  97     0.55670103
+## 120   1883      PHA 66  98     0.67346939
+## 121   1883      PHI 17  99     0.17171717
+## 122   1883      PRO 58  98     0.59183673
+## 123   1883      PIT 31  98     0.31632653
+## 124   1883      STL 65  98     0.66326531
+## 125   1884      ALT  6  25     0.24000000
+## 126   1884      BUF 64 114     0.56140351
+## 127   1884      BLO 63 108     0.58333333
+## 128   1884      BLU 58 105     0.55238095
+## 129   1884      LAD 40 109     0.36697248
+## 130   1884      ATL 73 116     0.62931034
+## 131   1884      BRD 58 109     0.53211009
+## 132   1884      CHC 62 112     0.55357143
+## 133   1884      CPI 41  92     0.44565217
+## 134   1884      CBL 35 113     0.30973451
+## 135   1884      CBK 69 110     0.62727273
+## 136   1884      CIN 68 112     0.60714286
+## 137   1884      COR 69 103     0.66990291
+## 138   1884      DTN 28 114     0.24561404
+## 139   1884      IHO 29 110     0.26363636
+## 140   1884      KCU 16  82     0.19512195
+## 141   1884      LOU 68 110     0.61818182
+## 142   1884      MLU  8  12     0.66666667
+## 143   1884      SFG 62 116     0.53448276
+## 144   1884      NYP 75 112     0.66964286
+## 145   1884      PHA 61 108     0.56481481
+## 146   1884      PHI 39 113     0.34513274
+## 147   1884      PHK 21  67     0.31343284
+## 148   1884      PRO 84 114     0.73684211
+## 149   1884      PIT 30 110     0.27272727
+## 150   1884      RIC 12  45     0.26666667
+## 151   1884      STL 67 110     0.60909091
+## 152   1884      SLM 94 113     0.83185841
+## 153   1884      STP  2   9     0.22222222
+## 154   1884      TOL 46 109     0.42201835
+## 155   1884      WIL  2  17     0.11764706
+## 156   1884      WST 12  63     0.19047619
+## 157   1884      WNA 47 112     0.41964286
+## 158   1885      BUF 38 112     0.33928571
+## 159   1885      BLO 41 110     0.37272727
+## 160   1885      LAD 53 112     0.47321429
+## 161   1885      ATL 46 113     0.40707965
+## 162   1885      CHC 87 113     0.76991150
+## 163   1885      CIN 63 112     0.56250000
+## 164   1885      DTN 41 108     0.37962963
+## 165   1885      LOU 53 112     0.47321429
+## 166   1885      SFG 85 112     0.75892857
+## 167   1885      NYP 44 108     0.40740741
+## 168   1885      PHA 55 113     0.48672566
+## 169   1885      PHI 56 111     0.50450450
+## 170   1885      PRO 53 110     0.48181818
+## 171   1885      PIT 56 111     0.50450450
+## 172   1885      STL 79 112     0.70535714
+## 173   1885      SLM 36 111     0.32432432
+## 174   1886      BLO 48 139     0.34532374
+## 175   1886      LAD 76 141     0.53900709
+## 176   1886      ATL 56 118     0.47457627
+## 177   1886      CHC 90 126     0.71428571
+## 178   1886      CIN 65 141     0.46099291
+## 179   1886      DTN 87 126     0.69047619
+## 180   1886      KCN 30 123     0.24390244
+## 181   1886      LOU 66 138     0.47826087
+## 182   1886      SFG 75 124     0.60483871
+## 183   1886      NYP 53 137     0.38686131
+## 184   1886      PHA 63 139     0.45323741
+## 185   1886      PHI 71 119     0.59663866
+## 186   1886      PIT 80 140     0.57142857
+## 187   1886      STL 93 139     0.66906475
+## 188   1886      SLM 43 126     0.34126984
+## 189   1886      WNL 28 122     0.22950820
+## 190   1887      BLO 77 141     0.54609929
+## 191   1887      LAD 60 138     0.43478261
+## 192   1887      ATL 61 127     0.48031496
+## 193   1887      CHC 71 127     0.55905512
+## 194   1887      CLV 39 133     0.29323308
+## 195   1887      CIN 81 135     0.60000000
+## 196   1887      DTN 79 127     0.62204724
+## 197   1887      IND 37 127     0.29133858
+## 198   1887      LOU 76 137     0.55474453
+## 199   1887      SFG 68 129     0.52713178
+## 200   1887      NYP 44 138     0.31884058
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 2755 rows ]</code></pre>
+<div id="challenge-1" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Challenge</h3>
+<p>USing the plot.data data created in the previous challenge. Use the mutate function to create the following variables</p>
+<ul>
+<li>Team: MIN for franchID== Min, LAD for franchID==“LAD” and STL for franchID==“STL”</li>
+<li>RunsPerGame: R/G</li>
+<li>HitsPerGame: HA/G</li>
+</ul>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro-to-r-part-ii.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="q-and-a.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/JoelParkerUofA/Introduction2R/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/JoelParkerUofA/Introduction2R/blob/master/index.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

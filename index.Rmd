@@ -258,6 +258,30 @@ Teams %>%
 
 ## Mutate 
 
+Many times it is nessisary to create new variables or manipulate old ones. You can use the mutate function to do this. \newline
+
+* Lets create create a new variable call win_percentage
+* Also use the select function to only look at the yearID,franchID,W,G and win_percentage 
+
+```{r}
+Teams %>%
+  mutate(win_percentage = W/G) %>%
+  select(yearID,franchID,W,G,win_percentage)
+
+
+```
+
+
+### Challenge
+
+USing the plot.data data created in the previous challenge. Use the mutate function to create the following variables
+
+* Team: MIN for franchID== Min, LAD for franchID=="LAD" and STL for franchID=="STL"
+* RunsPerGame:  R/G
+* HitsPerGame: HA/G
+
+
+
 
 
 # Q and A
