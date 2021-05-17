@@ -288,9 +288,194 @@ USing the plot.data data created in the previous challenge. Use the mutate funct
 # ggplot2 
 
 
+ggplot2 is a package to help visualize your data. There is a bit of a learning curve to understand the basics of ggplot2. However, a useful cheat sheet can be found here: https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf. 
+
+
+## ggplot
+The trick for ggplot is to start small and then add to the plot as you go. We will start with just two functions
+
+* ggplot- initiates the plot
+* aes - Aesthetic Mapping 
+
+Lets plot hr by year. 
+```{r}
+# Plot home runs by year step 1. 
+ggplot(Teams, aes(x=yearID, y=HR))
+
+```
+
+Now that we have created the plot we can visualize different graph types like:
+
+* geom_line() - line graph
+* geom_bar() - bar graph
+* geom_point() - scatter plot
+* And many more!
+
+We can use the $+$ sign to add to the graph. 
+
+```{r}
+
+# Lets narrow this down to just NL and AL teams
+teams.plot <- Teams %>%
+  filter(lgID %in% c("AL", "NL") & yearID >1950)
+
+# Plot home runs by year step 2. 
+ggplot(Teams, aes(x=yearID, y=HR)) +
+  geom_point()
+```
+
+
+It looks like homeruns have gone up year by year but is there a difference between the different leagues? \\
+
+We can specify "color" in the aes function to color each point based on which leage that team was in. 
+```{r}
+
+# Plot home runs by year step 3. 
+ggplot(teams.plot, aes(x=yearID, y=HR, color=lgID)) +
+  geom_point() 
+```
+
+
+### Challenge
+
+Using the plot.data data create a scatter plot colored by team. 
+
+
+## Labels
+It is important to properly label your plots so they are easy to read and interpret. The most commonly editied labels are:
+
+* xlab - x axis
+* ylab - y axis
+* ggtitle - plot time
+* guides - legend title
+
+
+```{r}
+# Plot home runs by year step 4. 
+ggplot(teams.plot, aes(x=yearID, y=HR, color=lgID)) +
+  geom_point() +
+  ggtitle("Homeruns Through Time", subtitle = "For NL and AL Teams") + # title and subtitle
+  xlab("Year") +
+  ylab("Home Runs") + 
+  guides(color= guide_legend(title = "League"))
+
+```
+
+
+There are also many built in themes to make the over all plot look better. 
+```{r}
+# Plot home runs by year step 5. 
+ggplot(teams.plot, aes(x=yearID, y=HR, color= lgID)) +
+  geom_point() +
+  ggtitle("Homeruns Through Time", subtitle = "For NL and AL Teams") + # title and subtitle
+  xlab("Year") +
+  ylab("Home Runs") + 
+  guides(color= guide_legend(title = "League")) +
+  theme_bw() # theme to make the plot look good. 
+ 
+```
+
+
+### Challenge
+Add to the plot created in the last section by:
+* Changing legend theme to Team
+* Changing x "label to Year"
+* Changing Y label to "Runs per Game"
+* Change title to: "Runs per Game" 
+* Change subtitle to "By Team"
+
+
+
+## Theme and Color Control
+You can manually play with the theme of the graph using the theme() function. You can also choose the colors on the graph with the scale_color_manual function. 
+
+```{r}
+
+# Plot with the visuals of the graph. 
+ggplot(teams.plot, aes(x=yearID, y=HR, color= lgID)) +
+  geom_point() +
+  ggtitle("Homeruns Through Time", subtitle = "For NL and AL Teams") + # title and subtitle
+  xlab("Year") +
+  ylab("Home Runs") + 
+  guides(color= guide_legend(title = "League")) +
+  theme_bw()+ # theme to make the plot look good. 
+  scale_color_manual(values = c("red","blue")) + # Make NL blue and AL red
+  theme(plot.title = element_text(hjust = 0.5, # Centers title
+                                  face = "bold", 
+                                  color = "Red"), # Makes title bold
+    
+            plot.subtitle = element_text(hjust = 0.5, # Centers subtitle
+                                     color =  "Blue"),
+        
+        axis.title = element_text(color = "Red"), # Change colors of axis title 
+        
+        axis.text = element_text(color = "Blue"), # Change color of axis 
+        
+        legend.title =   element_text(color = "Red", face = "bold") # Change color of legend title
+        )
+```
+
+
+### Challenge
+
+Take a few min to get the visuals just the want them in the plot from the previous challenge. Use the theme() function and the scale_color_manual() to play with different color combinations. 
+
+
+# Challenge Comparison
+By now if you have completed all of the challenges you should have something that looks like:
+```{r}
+library(dplyr)
+library(forcats)
+library(magrittr)
+
+## Filter data for the necissary variables. 
+
+plot.data <- Teams %>%
+ filter(franchID %in% c("LAD", "STL", "MIN") & yearID > 1900) %>%
+ mutate(Team = as.character(franchID)) %>%
+ mutate(RunsPerGame = R / G) %>%
+ mutate(HitsPerGame = HA / G) 
+
+
+
+## Plot 
+
+  ggplot(data = plot.data, aes(yearID,RunsPerGame)) +
+  theme_bw()+
+    geom_point(aes(color =Team)) +
+    xlab("Year") +
+    ylab("Runs per game") +
+    ggtitle("Runs per Game", subtitle = "By Team") +
+    theme(plot.title = element_text(hjust = 0.5, face = "bold"),
+          plot.subtitle = element_text(hjust= 0.5)) +
+    scale_color_manual(values =  c("blue","darkgreen","red"))
+
+```
+
+
+
+
+
+One issue with this plot is we can't tell during with years with team scored the most runs per game. We can add geom_smooth to help. 
+
+```{r}
+
+ ggplot(data = plot.data, aes(yearID,RunsPerGame)) +
+  theme_bw()+
+    geom_point(aes(color =Team)) +
+  geom_smooth(aes(color=Team)) + # Creates a smooth line to see which team scored the most runs per game from year to year. 
+    xlab("Year") +
+    ylab("Runs per game") +
+    ggtitle("Runs per Game", subtitle = "By Team") +
+    theme(plot.title = element_text(hjust = 0.5, face = "bold"),
+          plot.subtitle = element_text(hjust= 0.5)) +
+    scale_color_manual(values =  c("blue","darkgreen","red"))
+```
+
 
 # Q and A
-Please think about why you came to this workshop and what you were hoping to get out of it. What are you planning to use R for in the future? Lets have an open discussion about new topics we may have not disscussed yet. 
+Please think about why you came to this workshop and what you were hoping to get out of it. What are you planning to use R for in the future? Lets have an open discussion about new topics we may have not discussed yet. 
+
 
 
 

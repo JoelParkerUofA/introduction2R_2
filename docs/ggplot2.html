@@ -24,7 +24,7 @@
 <meta name="author" content="Joel Parker" />
 
 
-<meta name="date" content="2021-05-16" />
+<meta name="date" content="2021-05-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="dplyr.html"/>
-<link rel="next" href="q-and-a.html"/>
+<link rel="next" href="challenge-comparison.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -158,8 +158,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="dplyr.html"><a href="dplyr.html#challenge-1"><i class="fa fa-check"></i><b>4.4.1</b> Challenge</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="ggplot2.html"><a href="ggplot2.html"><i class="fa fa-check"></i><b>5</b> ggplot2</a></li>
-<li class="chapter" data-level="6" data-path="q-and-a.html"><a href="q-and-a.html"><i class="fa fa-check"></i><b>6</b> Q and A</a></li>
+<li class="chapter" data-level="5" data-path="ggplot2.html"><a href="ggplot2.html"><i class="fa fa-check"></i><b>5</b> ggplot2</a><ul>
+<li class="chapter" data-level="5.1" data-path="ggplot2.html"><a href="ggplot2.html#ggplot"><i class="fa fa-check"></i><b>5.1</b> ggplot</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="ggplot2.html"><a href="ggplot2.html#challenge-2"><i class="fa fa-check"></i><b>5.1.1</b> Challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ggplot2.html"><a href="ggplot2.html#labels"><i class="fa fa-check"></i><b>5.2</b> Labels</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="ggplot2.html"><a href="ggplot2.html#challenge-3"><i class="fa fa-check"></i><b>5.2.1</b> Challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ggplot2.html"><a href="ggplot2.html#theme-and-color-control"><i class="fa fa-check"></i><b>5.3</b> Theme and Color Control</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="ggplot2.html"><a href="ggplot2.html#challenge-4"><i class="fa fa-check"></i><b>5.3.1</b> Challenge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="challenge-comparison.html"><a href="challenge-comparison.html"><i class="fa fa-check"></i><b>6</b> Challenge Comparison</a></li>
+<li class="chapter" data-level="7" data-path="q-and-a.html"><a href="q-and-a.html"><i class="fa fa-check"></i><b>7</b> Q and A</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -181,6 +192,113 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="ggplot2" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> ggplot2</h1>
+<p>ggplot2 is a package to help visualize your data. There is a bit of a learning curve to understand the basics of ggplot2. However, a useful cheat sheet can be found here: <a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf" class="uri">https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf</a>.</p>
+<div id="ggplot" class="section level2">
+<h2><span class="header-section-number">5.1</span> ggplot</h2>
+<p>The trick for ggplot is to start small and then add to the plot as you go. We will start with just two functions</p>
+<ul>
+<li>ggplot- initiates the plot</li>
+<li>aes - Aesthetic Mapping</li>
+</ul>
+<p>Lets plot hr by year.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="co"># Plot home runs by year step 1. </span></a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="kw">ggplot</span>(Teams, <span class="kw">aes</span>(<span class="dt">x=</span>yearID, <span class="dt">y=</span>HR))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p>Now that we have created the plot we can visualize different graph types like:</p>
+<ul>
+<li>geom_line() - line graph</li>
+<li>geom_bar() - bar graph</li>
+<li>geom_point() - scatter plot</li>
+<li>And many more!</li>
+</ul>
+<p>We can use the <span class="math inline">\(+\)</span> sign to add to the graph.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="co"># Lets narrow this down to just NL and AL teams</span></a>
+<a class="sourceLine" id="cb23-2" title="2">teams.plot &lt;-<span class="st"> </span>Teams <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="st">  </span><span class="kw">filter</span>(lgID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;AL&quot;</span>, <span class="st">&quot;NL&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>yearID <span class="op">&gt;</span><span class="dv">1950</span>)</a>
+<a class="sourceLine" id="cb23-4" title="4"></a>
+<a class="sourceLine" id="cb23-5" title="5"><span class="co"># Plot home runs by year step 2. </span></a>
+<a class="sourceLine" id="cb23-6" title="6"><span class="kw">ggplot</span>(Teams, <span class="kw">aes</span>(<span class="dt">x=</span>yearID, <span class="dt">y=</span>HR)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-7" title="7"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p>It looks like homeruns have gone up year by year but is there a difference between the different leagues? \</p>
+<p>We can specify “color” in the aes function to color each point based on which leage that team was in.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="co"># Plot home runs by year step 3. </span></a>
+<a class="sourceLine" id="cb24-2" title="2"><span class="kw">ggplot</span>(teams.plot, <span class="kw">aes</span>(<span class="dt">x=</span>yearID, <span class="dt">y=</span>HR, <span class="dt">color=</span>lgID)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>() </a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<div id="challenge-2" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Challenge</h3>
+<p>Using the plot.data data create a scatter plot colored by team.</p>
+</div>
+</div>
+<div id="labels" class="section level2">
+<h2><span class="header-section-number">5.2</span> Labels</h2>
+<p>It is important to properly label your plots so they are easy to read and interpret. The most commonly editied labels are:</p>
+<ul>
+<li>xlab - x axis</li>
+<li>ylab - y axis</li>
+<li>ggtitle - plot time</li>
+<li>guides - legend title</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="co"># Plot home runs by year step 4. </span></a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="kw">ggplot</span>(teams.plot, <span class="kw">aes</span>(<span class="dt">x=</span>yearID, <span class="dt">y=</span>HR, <span class="dt">color=</span>lgID)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-4" title="4"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Homeruns Through Time&quot;</span>, <span class="dt">subtitle =</span> <span class="st">&quot;For NL and AL Teams&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># title and subtitle</span></a>
+<a class="sourceLine" id="cb25-5" title="5"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-6" title="6"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Home Runs&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-7" title="7"><span class="st">  </span><span class="kw">guides</span>(<span class="dt">color=</span> <span class="kw">guide_legend</span>(<span class="dt">title =</span> <span class="st">&quot;League&quot;</span>))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p>There are also many built in themes to make the over all plot look better.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="co"># Plot home runs by year step 5. </span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="kw">ggplot</span>(teams.plot, <span class="kw">aes</span>(<span class="dt">x=</span>yearID, <span class="dt">y=</span>HR, <span class="dt">color=</span> lgID)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-4" title="4"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Homeruns Through Time&quot;</span>, <span class="dt">subtitle =</span> <span class="st">&quot;For NL and AL Teams&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># title and subtitle</span></a>
+<a class="sourceLine" id="cb26-5" title="5"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-6" title="6"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Home Runs&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb26-7" title="7"><span class="st">  </span><span class="kw">guides</span>(<span class="dt">color=</span> <span class="kw">guide_legend</span>(<span class="dt">title =</span> <span class="st">&quot;League&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-8" title="8"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="co"># theme to make the plot look good. </span></a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<div id="challenge-3" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Challenge</h3>
+<p>Add to the plot created in the last section by:
+* Changing legend theme to Team
+* Changing x “label to Year”
+* Changing Y label to “Runs per Game”
+* Change title to: “Runs per Game”
+* Change subtitle to “By Team”</p>
+</div>
+</div>
+<div id="theme-and-color-control" class="section level2">
+<h2><span class="header-section-number">5.3</span> Theme and Color Control</h2>
+<p>You can manually play with the theme of the graph using the theme() function. You can also choose the colors on the graph with the scale_color_manual function.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="co"># Plot with the visuals of the graph. </span></a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="kw">ggplot</span>(teams.plot, <span class="kw">aes</span>(<span class="dt">x=</span>yearID, <span class="dt">y=</span>HR, <span class="dt">color=</span> lgID)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-4" title="4"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Homeruns Through Time&quot;</span>, <span class="dt">subtitle =</span> <span class="st">&quot;For NL and AL Teams&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># title and subtitle</span></a>
+<a class="sourceLine" id="cb27-5" title="5"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-6" title="6"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Home Runs&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb27-7" title="7"><span class="st">  </span><span class="kw">guides</span>(<span class="dt">color=</span> <span class="kw">guide_legend</span>(<span class="dt">title =</span> <span class="st">&quot;League&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-8" title="8"><span class="st">  </span><span class="kw">theme_bw</span>()<span class="op">+</span><span class="st"> </span><span class="co"># theme to make the plot look good. </span></a>
+<a class="sourceLine" id="cb27-9" title="9"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># Make NL blue and AL red</span></a>
+<a class="sourceLine" id="cb27-10" title="10"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>, <span class="co"># Centers title</span></a>
+<a class="sourceLine" id="cb27-11" title="11">                                  <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>, </a>
+<a class="sourceLine" id="cb27-12" title="12">                                  <span class="dt">color =</span> <span class="st">&quot;Red&quot;</span>), <span class="co"># Makes title bold</span></a>
+<a class="sourceLine" id="cb27-13" title="13">    </a>
+<a class="sourceLine" id="cb27-14" title="14">            <span class="dt">plot.subtitle =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>, <span class="co"># Centers subtitle</span></a>
+<a class="sourceLine" id="cb27-15" title="15">                                     <span class="dt">color =</span>  <span class="st">&quot;Blue&quot;</span>),</a>
+<a class="sourceLine" id="cb27-16" title="16">        </a>
+<a class="sourceLine" id="cb27-17" title="17">        <span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;Red&quot;</span>), <span class="co"># Change colors of axis title </span></a>
+<a class="sourceLine" id="cb27-18" title="18">        </a>
+<a class="sourceLine" id="cb27-19" title="19">        <span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;Blue&quot;</span>), <span class="co"># Change color of axis </span></a>
+<a class="sourceLine" id="cb27-20" title="20">        </a>
+<a class="sourceLine" id="cb27-21" title="21">        <span class="dt">legend.title =</span>   <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;Red&quot;</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>) <span class="co"># Change color of legend title</span></a>
+<a class="sourceLine" id="cb27-22" title="22">        )</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<div id="challenge-4" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Challenge</h3>
+<p>Take a few min to get the visuals just the want them in the plot from the previous challenge. Use the theme() function and the scale_color_manual() to play with different color combinations.</p>
+</div>
+</div>
 </div>
             </section>
 
@@ -188,7 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="dplyr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="q-and-a.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="challenge-comparison.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -238,6 +356,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

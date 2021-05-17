@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Introduction 2 R</title>
+  <title>Chapter 6 Challenge Comparison | Introduction 2 R</title>
   <meta name="description" content="This is an intro to R workshop." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Introduction 2 R" />
+  <meta property="og:title" content="Chapter 6 Challenge Comparison | Introduction 2 R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Introduction 2 R" />
+  <meta name="twitter:title" content="Chapter 6 Challenge Comparison | Introduction 2 R" />
   
   <meta name="twitter:description" content="This is an intro to R workshop." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="installing-r-and-r-studio.html"/>
+<link rel="prev" href="ggplot2.html"/>
+<link rel="next" href="q-and-a.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -190,47 +190,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Introduction 2 R</h1>
-<p class="author"><em>Joel Parker</em></p>
-<p class="date"><em>2021-05-17</em></p>
-</div>
-<div id="the-prerequisites" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> The Prerequisites</h1>
-<p>This is an intro to R workshop for coders with little exirence. Of course all levels or R users are welcome to attend and engage in the content. In this work shop we will learn basics of the tidyverse packages. </p>
-<p>The material covered in this workshop closely follows the 2020 ResBaz intro to R course found here <a href="https://picoral.github.io/resbaz_intro_to_r/index.html" class="uri">https://picoral.github.io/resbaz_intro_to_r/index.html</a></p>
-<div id="why-use-r-and-r-studio" class="section level2">
-<h2><span class="header-section-number">1.1</span> Why use R and R Studio</h2>
-<div id="more-coding-and-less-point-and-click" class="section level3">
-<h3><span class="header-section-number">1.1.1</span> More coding, and less point and click</h3>
-<p>The results in R rely on a series of well defined commands rather than just pointing and clicking. This can allow you to have a better understanding and control of the results. The steps taken in the analysis can be saved making it fast to run the analysis again. This makes statisitical analysis easily reproducible, which is important when conducting research.</p>
-</div>
-</div>
-<div id="wrote-by-the-people-for-the-people" class="section level2">
-<h2><span class="header-section-number">1.2</span> Wrote by the people for the people</h2>
-<p>There are 10,000 + packages that can be used in R. Packages are easy to download and implement. If you can’t find a package for your specific need, then you can create your own for yourself and others to use.</p>
-</div>
-<div id="r-has-a-large-community" class="section level2">
-<h2><span class="header-section-number">1.3</span> R has a large community</h2>
-<p>Thousands of people use R daily. Many of them are willing to help you through mailing lists and websites such as Stack Overflow.</p>
-</div>
-<div id="r-produces-high-quality-graphics" class="section level2">
-<h2><span class="header-section-number">1.4</span> R produces high-quality graphics</h2>
-<p>packages like ggplot allow users to create high quality graphics like the one below.</p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
-</div>
-<div id="open-source" class="section level2">
-<h2><span class="header-section-number">1.5</span> Open Source</h2>
-<p>Anyone can inspect the source code to see how R works. Because of this transparency, there is less chance for mistakes, and if you (or someone else) find some, you can report and fix bugs.</p>
-</div>
+<div id="challenge-comparison" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Challenge Comparison</h1>
+<p>By now if you have completed all of the challenges you should have something that looks like:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb28-2" title="2"><span class="kw">library</span>(forcats)</a>
+<a class="sourceLine" id="cb28-3" title="3"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb28-4" title="4"></a>
+<a class="sourceLine" id="cb28-5" title="5"><span class="co">## Filter data for the necissary variables. </span></a>
+<a class="sourceLine" id="cb28-6" title="6"></a>
+<a class="sourceLine" id="cb28-7" title="7">plot.data &lt;-<span class="st"> </span>Teams <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-8" title="8"><span class="st"> </span><span class="kw">filter</span>(franchID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;LAD&quot;</span>, <span class="st">&quot;STL&quot;</span>, <span class="st">&quot;MIN&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>yearID <span class="op">&gt;</span><span class="st"> </span><span class="dv">1900</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-9" title="9"><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Team =</span> <span class="kw">as.character</span>(franchID)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-10" title="10"><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">RunsPerGame =</span> R <span class="op">/</span><span class="st"> </span>G) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-11" title="11"><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">HitsPerGame =</span> HA <span class="op">/</span><span class="st"> </span>G) </a>
+<a class="sourceLine" id="cb28-12" title="12"></a>
+<a class="sourceLine" id="cb28-13" title="13"></a>
+<a class="sourceLine" id="cb28-14" title="14"></a>
+<a class="sourceLine" id="cb28-15" title="15"><span class="co">## Plot </span></a>
+<a class="sourceLine" id="cb28-16" title="16"></a>
+<a class="sourceLine" id="cb28-17" title="17">  <span class="kw">ggplot</span>(<span class="dt">data =</span> plot.data, <span class="kw">aes</span>(yearID,RunsPerGame)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-18" title="18"><span class="st">  </span><span class="kw">theme_bw</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb28-19" title="19"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span>Team)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-20" title="20"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-21" title="21"><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Runs per game&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-22" title="22"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Runs per Game&quot;</span>, <span class="dt">subtitle =</span> <span class="st">&quot;By Team&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-23" title="23"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</a>
+<a class="sourceLine" id="cb28-24" title="24">          <span class="dt">plot.subtitle =</span> <span class="kw">element_text</span>(<span class="dt">hjust=</span> <span class="fl">0.5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-25" title="25"><span class="st">    </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span>  <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;darkgreen&quot;</span>,<span class="st">&quot;red&quot;</span>))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p>One issue with this plot is we can’t tell during with years with team scored the most runs per game. We can add geom_smooth to help.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"> <span class="kw">ggplot</span>(<span class="dt">data =</span> plot.data, <span class="kw">aes</span>(yearID,RunsPerGame)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="st">  </span><span class="kw">theme_bw</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span>Team)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-4" title="4"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Team)) <span class="op">+</span><span class="st"> </span><span class="co"># Creates a smooth line to see which team scored the most runs per game from year to year. </span></a>
+<a class="sourceLine" id="cb29-5" title="5"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-6" title="6"><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Runs per game&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-7" title="7"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Runs per Game&quot;</span>, <span class="dt">subtitle =</span> <span class="st">&quot;By Team&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-8" title="8"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</a>
+<a class="sourceLine" id="cb29-9" title="9">          <span class="dt">plot.subtitle =</span> <span class="kw">element_text</span>(<span class="dt">hjust=</span> <span class="fl">0.5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-10" title="10"><span class="st">    </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span>  <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;darkgreen&quot;</span>,<span class="st">&quot;red&quot;</span>))</a></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="installing-r-and-r-studio.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ggplot2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="q-and-a.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

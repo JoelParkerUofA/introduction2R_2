@@ -19,4 +19,11 @@ group_by
 mutate
 challenge-1
 ggplot2
+ggplot
+challenge-2
+labels
+challenge-3
+theme-and-color-control
+challenge-4
+challenge-comparison
 q-and-a
