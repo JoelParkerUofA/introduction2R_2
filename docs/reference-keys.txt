@@ -18,4 +18,5 @@ challenge
 group_by
 mutate
 challenge-1
+ggplot2
 q-and-a

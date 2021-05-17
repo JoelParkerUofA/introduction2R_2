@@ -181,7 +181,7 @@ head(Teams,n=10)
 
 
 ## filter
-Typically we what are called pipes %>% to edit and manipulate data. We will start by filtering data. Lets say we were only interested in the data that was collected after 1950. We can use the filter function from dplyr to get what we want. 
+Typically we use what are called pipes %>% to edit and manipulate data. We will start by filtering data. Lets say we were only interested in the data that was collected after 1950. We can use the filter function from dplyr to get what we want. 
 
 ```{r}
 
@@ -195,7 +195,8 @@ class(Teams$yearID)
 # data after 1950
 
 Teams %>%
-  filter(yearID > 1950)
+  filter(yearID > 1950) %>%
+  head()
 
 ```
 
@@ -210,7 +211,8 @@ You can use the &  or | opperators if multiple conditions need to be met. Lets u
 
 ## Filter with multiple conditions. 
 Teams %>%
-  filter(yearID > 1950 & franchID =="BOS" )
+  filter(yearID > 1950 & franchID =="BOS" ) %>%
+  head()
 ```
 
 
@@ -221,7 +223,8 @@ Teams %>%
 
 ## Filter with multiple conditions. 
 Teams %>%
-  filter(yearID > 1950 & (franchID =="BOS" | franchID=="LAD"))
+  filter(yearID > 1950 & (franchID =="BOS" | franchID=="LAD")) %>%
+  head()
 ```
 
 
@@ -251,7 +254,8 @@ Somtimes your data may be in different groups. Lets say we are interested in how
 ## Summarise wins per year for each team.
 Teams %>%
   group_by(franchID) %>%
-  summarise(wins_per_year = mean(W))
+  summarise(wins_per_year = mean(W)) %>%
+  head()
 
 ```
 
@@ -266,7 +270,8 @@ Many times it is nessisary to create new variables or manipulate old ones. You c
 ```{r}
 Teams %>%
   mutate(win_percentage = W/G) %>%
-  select(yearID,franchID,W,G,win_percentage)
+  select(yearID,franchID,W,G,win_percentage) %>%
+  head()
 
 
 ```
@@ -280,7 +285,7 @@ USing the plot.data data created in the previous challenge. Use the mutate funct
 * RunsPerGame:  R/G
 * HitsPerGame: HA/G
 
-
+# ggplot2 
 
 
 
